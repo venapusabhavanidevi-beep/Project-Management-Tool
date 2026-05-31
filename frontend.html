@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Management Tool</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .task {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .completed {
+            background: #d4edda;
+        }
+
+        .pending {
+            background: #fff3cd;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Project Management Tool</h1>
+
+        <div class="card">
+
+            <h2>Create Task</h2>
+
+            <input type="text" id="project" placeholder="Project Name">
+
+            <input type="text" id="task" placeholder="Task Name">
+
+            <input type="text" id="assigned" placeholder="Assigned To">
+
+            <select id="status">
+                <option>Pending</option>
+                <option>Completed</option>
+            </select>
+
+            <button onclick="addTask()">Add Task</button>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Task List</h2>
+
+            <div id="taskList"></div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        let tasks = [];
+
+        function addTask() {
+
+            let project = document.getElementById("project").value;
+            let task = document.getElementById("task").value;
+            let assigned = document.getElementById("assigned").value;
+            let status = document.getElementById("status").value;
+
+            if (project === "" || task === "" || assigned === "") {
+                alert("Fill all fields");
+                return;
+            }
+
+            tasks.push({
+                project,
+                task,
+                assigned,
+                status
+            });
+
+            displayTasks();
+
+            document.getElementById("project").value = "";
+            document.getElementById("task").value = "";
+            document.getElementById("assigned").value = "";
+        }
+
+        function displayTasks() {
+
+            let output = "";
+
+            tasks.forEach((t, index) => {
+
+                output += `
+<div class="task ${t.status.toLowerCase()}">
+
+<h3>${t.task}</h3>
+
+<p><b>Project:</b> ${t.project}</p>
+
+<p><b>Assigned To:</b> ${t.assigned}</p>
+
+<p><b>Status:</b> ${t.status}</p>
+
+<button onclick="toggleStatus(${index})">
+Change Status
+</button>
+
+<button onclick="deleteTask(${index})">
+Delete
+</button>
+
+</div>
+`;
+            });
+
+            document.getElementById("taskList").innerHTML = output;
+        }
+
+        function toggleStatus(index) {
+
+            if (tasks[index].status === "Pending") {
+                tasks[index].status = "Completed";
+            } else {
+                tasks[index].status = "Pending";
+            }
+
+            displayTasks();
+        }
+
+        function deleteTask(index) {
+
+            tasks.splice(index, 1);
+
+            displayTasks();
+        }
+
+    </script>
+
+</body>
+
+</html>
