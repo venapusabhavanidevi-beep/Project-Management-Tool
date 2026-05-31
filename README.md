@@ -46,3 +46,6 @@ Productivity Tools
 Frontend Web Development Projects
 
 OUTPUT:
+
+<img width="1853" height="627" alt="Image" src="https://github.com/user-attachments/assets/cb844da2-a350-4b0e-8219-8138b779998a" />
+<img width="1427" height="855" alt="Image" src="https://github.com/user-attachments/assets/f7cb259b-06e7-438a-9692-90c44eb684a9" />
